@@ -75,22 +75,23 @@
     </ul>
   </section>
 
-  <!-- RSVP -->
-  <section class="py-16 px-4">
+  <!-- RSVP Форма -->
+  <section class="py-16 px-4 bg-white bg-opacity-10">
     <h2 class="text-2xl text-center font-semibold mb-8">Подтвердите участие</h2>
-    <div class="max-w-xl mx-auto form-container">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSc8wEpCoWrtFrWfYxVY63zlEOgYkf3Vp8ptHEN6HYmtzQuVuA/viewform?embedded=true"
-        width="100%"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        class="w-full rounded-xl shadow-xl bg-white"
-      >
-        Загрузка…
-      </iframe>
-    </div>
+    <form id="rsvpForm" class="max-w-xl mx-auto space-y-4 bg-white bg-opacity-5 p-6 rounded-xl backdrop-blur">
+      <input type="text" name="Имя" placeholder="Ваше имя" required class="w-full p-3 rounded bg-white text-black" />
+      <select name="Присутствие" required class="w-full p-3 rounded bg-white text-black">
+        <option value="">Вы придёте?</option>
+        <option value="Да">Да</option>
+        <option value="Нет">Нет</option>
+      </select>
+      <input type="number" name="Гостей" placeholder="Количество гостей" class="w-full p-3 rounded bg-white text-black" />
+      <textarea name="Комментарий" placeholder="Комментарий" rows="3" class="w-full p-3 rounded bg-white text-black"></textarea>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded w-full">Отправить</button>
+      <p id="formMsg" class="text-center text-sm mt-2"></p>
+    </form>
   </section>
+
 
   <script>
     // GSAP анимации появления
@@ -121,5 +122,30 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+  <script>
+  const form = document.getElementById("rsvpForm");
+  const msg = document.getElementById("formMsg");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "Отправка...";
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbzMvb07t5ylsMOC5Rdd8YaQTYkDdttGOaWffdbu5Ar8EjvbS1zQ_-fa596t7svu6_0V/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      msg.textContent = "Спасибо! Данные получены.";
+      form.reset();
+    } catch (err) {
+      msg.textContent = "Произошла ошибка. Попробуйте снова.";
+    }
+  });
+</script>
 </body>
 </html>
