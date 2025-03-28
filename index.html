@@ -4,63 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Свадьба Екатерины и Цырена</title>
+
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
   <style>
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background: linear-gradient(135deg, #1e3a8a, #0f766e);
+      font-family: 'Poppins', sans-serif;
       color: white;
+    }
+
+    /* Для плавных появлений */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .form-container iframe {
+      height: 650px; /* Подобрано под стандартную форму без скроллинга */
     }
   </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-gradient-to-br from-blue-900 via-teal-800 to-cyan-800">
 
   <!-- Видео Обложка -->
   <section class="relative w-full h-screen overflow-hidden">
-    <!-- Видео на фоне -->
-    <video
-      class="absolute top-0 left-0 w-full h-full object-cover"
-      autoplay
-      loop
-      playsinline
-    >
+    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted playsinline>
       <source src="video/invite.mp4" type="video/mp4" />
       Ваш браузер не поддерживает видео.
     </video>
-
-    <!-- Синяя вуаль -->
-    <div class="absolute top-0 left-0 w-full h-full bg-blue-900/60 backdrop-brightness-75"></div>
-
-    <!-- Текст -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-      <h1 class="text-4xl md:text-6xl font-bold drop-shadow-lg opacity-0" id="title">Цырен & Екатерина</h1>
-      <p class="mt-4 text-xl md:text-2xl drop-shadow-sm opacity-0" id="date">30 мая 2025 • 18:30</p>
+    <div class="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-60 backdrop-brightness-75"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+      <h1 class="text-5xl md:text-7xl font-extrabold drop-shadow fade-in" id="title">Цырен & Екатерина</h1>
+      <p class="mt-6 text-2xl md:text-3xl fade-in" id="date">30 сентября 2025 • 18:30</p>
     </div>
   </section>
 
   <!-- Таймер -->
-  <section class="py-12 bg-white bg-opacity-10">
+  <section class="py-12 bg-white bg-opacity-10 backdrop-blur-sm">
     <div class="text-center">
-      <h2 class="text-2xl font-semibold mb-6">До свадьбы осталось</h2>
-      <div id="countdown" class="text-3xl font-mono">Загрузка...</div>
+      <h2 class="text-2xl font-semibold mb-4">До свадьбы осталось</h2>
+      <div id="countdown" class="text-3xl font-mono text-yellow-200">Загрузка...</div>
     </div>
   </section>
 
   <!-- Фото -->
-  <section class="py-16 px-4">
+  <section class="py-16 px-4 bg-opacity-10">
     <h2 class="text-2xl text-center font-semibold mb-8">Наши моменты</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <img src="https://via.placeholder.com/300x200" alt="Фото 1" class="rounded-xl shadow-lg">
-      <img src="https://via.placeholder.com/300x200" alt="Фото 2" class="rounded-xl shadow-lg">
-      <img src="https://via.placeholder.com/300x200" alt="Фото 3" class="rounded-xl shadow-lg">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <img src="https://via.placeholder.com/400x250" alt="Фото 1" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
+      <img src="https://via.placeholder.com/400x250" alt="Фото 2" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
+      <img src="https://via.placeholder.com/400x250" alt="Фото 3" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
     </div>
   </section>
 
   <!-- Программа дня -->
-  <section class="py-16 bg-white bg-opacity-10 px-4">
+  <section class="py-16 bg-white bg-opacity-10 backdrop-blur-sm px-4">
     <h2 class="text-2xl text-center font-semibold mb-8">Программа</h2>
-    <ul class="max-w-xl mx-auto space-y-4">
+    <ul class="max-w-xl mx-auto space-y-4 text-lg">
       <li>17:30 — Сбор гостей</li>
       <li>18:30 — Церемония</li>
       <li>19:30 — Ужин и праздник</li>
@@ -71,31 +78,37 @@
   <!-- RSVP -->
   <section class="py-16 px-4">
     <h2 class="text-2xl text-center font-semibold mb-8">Подтвердите участие</h2>
-    <div class="max-w-xl mx-auto">
-      <div style="position: relative; width: 100%; padding-bottom: 140%; height: 0; overflow: hidden;">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSc8wEpCoWrtFrWfYxVY63zlEOgYkf3Vp8ptHEN6HYmtzQuVuA/viewform?embedded=true"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allowfullscreen>
-          Загрузка…
-        </iframe>
-      </div>
+    <div class="max-w-xl mx-auto form-container">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSc8wEpCoWrtFrWfYxVY63zlEOgYkf3Vp8ptHEN6HYmtzQuVuA/viewform?embedded=true"
+        width="100%"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="w-full rounded-xl shadow-xl bg-white"
+      >
+        Загрузка…
+      </iframe>
     </div>
   </section>
 
   <script>
+    // GSAP анимации появления
     gsap.to("#title", { opacity: 1, y: -20, duration: 1 });
-    gsap.to("#date", { opacity: 1, y: -10, duration: 1, delay: 0.5 });
+    gsap.to("#date", { opacity: 1, y: -10, duration: 1, delay: 0.4 });
 
-    const targetDate = new Date("2025-05-30T18:30:00").getTime();
+    // Таймер
+    const targetDate = new Date("2025-09-30T18:30:00").getTime();
     const countdown = document.getElementById("countdown");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdown.innerHTML = "Свадьба уже состоялась!";
+        return;
+      }
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -105,6 +118,7 @@
       countdown.innerHTML = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
     }
 
+    updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
 </body>
