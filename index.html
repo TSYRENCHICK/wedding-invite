@@ -7,10 +7,8 @@
 
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
@@ -20,22 +18,21 @@
       color: white;
     }
 
-    /* Для плавных появлений */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
     }
 
-    .form-container iframe {
-      height: 650px; /* Подобрано под стандартную форму без скроллинга */
+    .modal {
+      background-color: rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body class="overflow-x-hidden bg-gradient-to-br from-blue-900 via-teal-800 to-cyan-800">
 
-  <!-- Видео Обложка -->
+  <!-- Видео -->
   <section class="relative w-full h-screen overflow-hidden">
-    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop playsinline>
+    <video id="mainVideo" class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted playsinline>
       <source src="video/invite.mp4" type="video/mp4" />
       Ваш браузер не поддерживает видео.
     </video>
@@ -44,6 +41,9 @@
       <h1 class="text-5xl md:text-7xl font-extrabold drop-shadow fade-in" id="title">Цырен & Екатерина</h1>
       <p class="mt-6 text-2xl md:text-3xl fade-in" id="date">30 мая 2025 • 18:30</p>
     </div>
+    <button id="soundBtn" class="absolute bottom-6 right-6 z-20 bg-white text-black rounded-full px-4 py-2 shadow hover:bg-gray-200 transition">
+      🔊 Включить звук
+    </button>
   </section>
 
   <!-- Таймер -->
@@ -64,7 +64,7 @@
     </div>
   </section>
 
-  <!-- Программа дня -->
+  <!-- Программа -->
   <section class="py-16 bg-white bg-opacity-10 backdrop-blur-sm px-4">
     <h2 class="text-2xl text-center font-semibold mb-8">Программа</h2>
     <ul class="max-w-xl mx-auto space-y-4 text-lg">
@@ -75,7 +75,7 @@
     </ul>
   </section>
 
-  <!-- RSVP ФОРМА -->
+  <!-- RSVP -->
   <section class="py-16 px-4 bg-white bg-opacity-10 backdrop-blur-sm">
     <h2 class="text-2xl text-center font-semibold mb-8">Подтвердите участие</h2>
     <form id="rsvpForm" class="max-w-xl mx-auto space-y-4 bg-white bg-opacity-5 p-6 rounded-xl backdrop-blur">
@@ -91,8 +91,8 @@
     </form>
   </section>
 
-  <!-- МОДАЛЬНОЕ ОКНО -->
-  <div id="thankModal" class="modal fixed inset-0 flex items-center justify-center z-50">
+  <!-- Модальное окно -->
+  <div id="thankModal" class="modal fixed inset-0 flex items-center justify-center z-50 pointer-events-none opacity-0">
     <div class="bg-white text-black p-8 rounded-xl shadow-xl text-center w-10/12 max-w-md scale-75 opacity-0">
       <h3 class="text-2xl font-bold mb-2">Спасибо за участие!</h3>
       <p class="text-gray-600">Мы с нетерпением ждём встречи!</p>
@@ -100,60 +100,75 @@
     </div>
   </div>
 
-
+  <!-- Скрипты -->
   <script>
-    // GSAP анимации появления
+    // Анимации GSAP
     gsap.to("#title", { opacity: 1, y: -20, duration: 1 });
     gsap.to("#date", { opacity: 1, y: -10, duration: 1, delay: 0.4 });
 
     // Таймер
     const targetDate = new Date("2025-05-30T18:30:00").getTime();
     const countdown = document.getElementById("countdown");
-
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-
-      if (distance < 0) {
-        countdown.innerHTML = "Свадьба уже состоялась!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdown.innerHTML = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+      if (distance < 0) return countdown.innerHTML = "Свадьба уже состоялась!";
+      const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((distance % (1000 * 60)) / 1000);
+      countdown.innerHTML = `${d}д ${h}ч ${m}м ${s}с`;
     }
-
     updateCountdown();
     setInterval(updateCountdown, 1000);
-  </script>
-  <script>
-  const form = document.getElementById("rsvpForm");
-  const msg = document.getElementById("formMsg");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    msg.textContent = "Отправка...";
+    // Звук
+    const video = document.getElementById("mainVideo");
+    const soundBtn = document.getElementById("soundBtn");
+    soundBtn.addEventListener("click", () => {
+      video.muted = false;
+      video.currentTime = 0;
+      video.play();
+      soundBtn.classList.add("hidden");
+    });
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    // Модальное окно
+    const form = document.getElementById("rsvpForm");
+    const thankModal = document.getElementById("thankModal");
+    const modalContent = thankModal.querySelector("div");
 
-    try {
-      await fetch("https://script.google.com/macros/s/AKfycbzMvb07t5ylsMOC5Rdd8YaQTYkDdttGOaWffdbu5Ar8EjvbS1zQ_-fa596t7svu6_0V/exec", {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      msg.textContent = "Спасибо! Данные получены.";
-      form.reset();
-    } catch (err) {
-      msg.textContent = "Произошла ошибка. Попробуйте снова.";
+    function showModal() {
+      thankModal.classList.remove("pointer-events-none");
+      gsap.to(modalContent, { opacity: 1, scale: 1, duration: 0.5 });
+      thankModal.classList.remove("opacity-0");
     }
-  });
-</script>
+
+    function closeModal() {
+      gsap.to(modalContent, { opacity: 0, scale: 0.75, duration: 0.3 });
+      setTimeout(() => {
+        thankModal.classList.add("opacity-0");
+        thankModal.classList.add("pointer-events-none");
+      }, 300);
+    }
+
+    window.closeModal = closeModal;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbzMvb07t5ylsMOC5Rdd8YaQTYkDdttGOaWffdbu5Ar8EjvbS1zQ_-fa596t7svu6_0V/exec", {
+          method: "POST",
+          mode: "no-cors",
+          body: formData
+        });
+        form.reset();
+        showModal();
+      } catch (err) {
+        alert("Произошла ошибка. Попробуйте снова.");
+      }
+    });
+  </script>
+
 </body>
 </html>
