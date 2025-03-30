@@ -34,7 +34,7 @@
     <div class="absolute inset-0 bg-blue-900 bg-opacity-60 backdrop-brightness-75"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
       <h1 class="text-5xl md:text-7xl font-extrabold drop-shadow fade-in" id="title">Цырен & Екатерина</h1>
-      <p class="mt-6 text-2xl md:text-3xl fade-in" id="date">30 мая 2025 • 18:30</p>
+      <p class="mt-6 text-2xl md:text-3xl fade-in" id="date">30 мая 2025 • 18:40</p>
       <button onclick="enableSound()" class="mt-8 bg-white bg-opacity-20 px-6 py-2 rounded-xl backdrop-blur hover:bg-opacity-40 transition">🔊 Включить звук</button>
     </div>
   </section>
@@ -56,7 +56,7 @@
     <h2 class="text-2xl font-semibold mb-8">Программа</h2>
     <ul class="max-w-xl mx-auto space-y-4 text-lg">
       <li>17:30 — Сбор гостей</li>
-      <li>18:30 — Церемония</li>
+      <li>18:40 — Церемония</li>
       <li>19:30 — Ужин и праздник</li>
       <li>22:00 — Танцы и веселье</li>
     </ul>
@@ -102,7 +102,7 @@
 
     // Таймер
     const countdown = document.getElementById("countdown");
-    const targetDate = new Date("2025-05-30T18:30:00").getTime();
+    const targetDate = new Date("2025-05-30T18:40:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
