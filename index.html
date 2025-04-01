@@ -56,13 +56,12 @@
     <h2 class="text-2xl text-center font-semibold mb-8">Дорогие гости!</h2>
     <h2 class="text-2xl text-center font-semibold mb-8">С огромной радостью приглашаем вас разделить с нами один из самых важных моментов в нашей жизни - регистрация брака</h2>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-      <img src="photo/1.jpg" alt="Фото 1" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/2.jpg" alt="Фото 2" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/3.jpg" alt="Фото 3" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/4.jpg" alt="Фото 4" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
+      <img src="photo/1.jpg" alt="Фото 1" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
+      <img src="photo/2.jpg" alt="Фото 2" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
+      <img src="photo/3.jpg" alt="Фото 3" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
+      <img src="photo/4.jpg" alt="Фото 4" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
     </div>
   </section>
-
   <!-- Программа -->
   <section class="py-16 bg-white bg-opacity-10 backdrop-blur-sm px-4">
     <h2 class="text-2xl text-center font-semibold mb-8">Программа</h2>
@@ -202,6 +201,29 @@
         alert(`Произошла ошибка: ${err.message}. Попробуйте снова.`);
       }
     });
+        // Анимация фотографий
+    document.addEventListener("DOMContentLoaded", () => {
+      const photos = document.querySelectorAll(".grid img");
+      photos.forEach((photo, index) => {
+        gsap.fromTo(
+          photo,
+          { opacity: 0, y: 50 }, // Начальное состояние: невидимые и смещены вниз
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: index * 0.2, // Задержка для каждой фотографии (0, 0.2, 0.4, 0.6 сек)
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: photo,
+              start: "top 80%", // Анимация начинается, когда фото появляется в 80% высоты экрана
+            },
+          }
+        );
+      });
+    });
+    gsap.registerPlugin(ScrollTrigger);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   </script>
 
