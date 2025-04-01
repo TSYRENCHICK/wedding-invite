@@ -133,7 +133,7 @@
       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((distance % (1000 * 60)) / 1000);
       
-      countdown.innerHTML = `${d}дн ${h}ч ${m}мин ${s}сек`;
+      countdown.innerHTML = `${d} дн ${h} ч ${m} мин ${s} сек`;
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
