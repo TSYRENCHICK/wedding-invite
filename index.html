@@ -166,6 +166,7 @@
       try {
         await fetch("https://script.google.com/macros/s/AKfycbzHAGcs4uem_LXy1d1hzvOT-Peepz_1sEnj6y1cEQzIE7iJYdWUX0HRNc6yqr8rQ7T3/exec", {
           method: "POST",
+          mode:"no-cors",
           body: formData
         });
         form.reset();
