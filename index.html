@@ -102,6 +102,15 @@
     // Анимации GSAP
     gsap.to("#title", { opacity: 1, y: -20, duration: 1 });
     gsap.to("#date", { opacity: 1, y: -10, duration: 1, delay: 0.4 });
+    // Плавное появление каждого поля формы
+    gsap.from("#rsvpForm input, #rsvpForm select, #rsvpForm textarea, #rsvpForm button", {
+      opacity: 0,
+      y: 30,
+      stagger: 0.15,
+      duration: 1,
+      ease: "power2.out"
+    });
+
 
     // Таймер
     const targetDate = new Date("2025-05-30T18:40:00").getTime();
@@ -155,7 +164,7 @@
       e.preventDefault();
       const formData = new FormData(form);
       try {
-        await fetch("https://script.google.com/macros/s/AKfycbxptw2QV3MOs3BOxFy8bFmDlXV8kTuLF2GbFVCFvklE3DdZTUsbv3sfdV23NhDi4n_zMQ/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycbzHAGcs4uem_LXy1d1hzvOT-Peepz_1sEnj6y1cEQzIE7iJYdWUX0HRNc6yqr8rQ7T3/exec", {
           method: "POST",
           mode: "no-cors",
           body: formData
