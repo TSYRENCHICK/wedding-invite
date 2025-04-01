@@ -151,20 +151,35 @@
     window.closeModal = closeModal;
 
     form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      try {
-        await fetch("https://script.google.com/macros/s/AKfycbzHAGcs4uem_LXy1d1hzvOT-Peepz_1sEnj6y1cEQzIE7iJYdWUX0HRNc6yqr8rQ7T3/exec", {
-          method: "POST",
-          mode: "no-cors",
-          body: formData
-        });
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get("name"),
+      attending: formData.get("attending"),
+      guests: formData.get("guests"),
+      comment: formData.get("comment")
+    };
+  
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzHAGcs4uem_LXy1d1hzvOT-Peepz_1sEnj6y1cEQzIE7iJYdWUX0HRNc6yqr8rQ7T3/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)  // Отправляем данные как JSON
+      });
+  
+      if (response.ok) {
         form.reset();
         showModal();
-      } catch (err) {
-        alert("Произошла ошибка. Попробуйте снова.");
+      } else {
+        throw new Error("Ошибка при отправке данных.");
       }
-    });
+    } catch (err) {
+      alert("Произошла ошибка. Попробуйте снова.");
+    }
+  });
+
   </script>
 
 </body>
