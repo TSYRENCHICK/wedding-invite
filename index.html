@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  gsap.registerPlugin(ScrollTrigger);
 
   <style>
     body {
@@ -52,14 +54,16 @@
   </section>
 
   <!-- Фото -->
-  <section class="py-16 px-4 bg-opacity-10">
+  <section class="py-16 px-4 bg-opacity-10 relative">
     <h2 class="text-2xl text-center font-semibold mb-8">Дорогие гости!</h2>
     <h2 class="text-2xl text-center font-semibold mb-8">С огромной радостью приглашаем вас разделить с нами один из самых важных моментов в нашей жизни - регистрация брака</h2>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-      <img src="photo/1.jpg" alt="Фото 1" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
-      <img src="photo/2.jpg" alt="Фото 2" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
-      <img src="photo/3.jpg" alt="Фото 3" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
-      <img src="photo/4.jpg" alt="Фото 4" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500 fade-in">
+    <div class="carousel-container relative w-full max-w-6xl mx-auto h-96 perspective-1000">
+      <div class="carousel absolute w-full h-full">
+        <img src="photo/1.jpg" alt="Фото 1" class="carousel-item absolute rounded-2xl shadow-2xl">
+        <img src="photo/2.jpg" alt="Фото 2" class="carousel-item absolute rounded-2xl shadow-2xl">
+        <img src="photo/3.jpg" alt="Фото 3" class="carousel-item absolute rounded-2xl shadow-2xl">
+        <img src="photo/4.jpg" alt="Фото 4" class="carousel-item absolute rounded-2xl shadow-2xl">
+      </div>
     </div>
   </section>
   <!-- Программа -->
@@ -201,30 +205,66 @@
         alert(`Произошла ошибка: ${err.message}. Попробуйте снова.`);
       }
     });
-        // Анимация фотографий
+    .perspective-1000 {
+      perspective: 1000px; /* Глубина 3D-пространства */
+    }
+    
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .carousel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d; /* Включаем 3D-пространство */
+    }
+    
+    .carousel-item {
+      position: absolute;
+      width: 200px; /* Фиксированная ширина фото */
+      height: 300px; /* Фиксированная высота фото */
+      object-fit: cover; /* Чтобы фото не искажались */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Центрируем фото */
+      transition: transform 0.5s ease;
+    }
+        // Анимация карусели
     document.addEventListener("DOMContentLoaded", () => {
-      const photos = document.querySelectorAll(".grid img");
-      photos.forEach((photo, index) => {
-        gsap.fromTo(
-          photo,
-          { opacity: 0, y: 50 }, // Начальное состояние: невидимые и смещены вниз
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: index * 0.2, // Задержка для каждой фотографии (0, 0.2, 0.4, 0.6 сек)
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: photo,
-              start: "top 80%", // Анимация начинается, когда фото появляется в 80% высоты экрана
-            },
-          }
-        );
+      const carousel = document.querySelector(".carousel");
+      const items = document.querySelectorAll(".carousel-item");
+      const totalItems = items.length;
+      const radius = 300; // Радиус карусели (расстояние от центра)
+    
+      // Располагаем фотографии по кругу
+      items.forEach((item, index) => {
+        const angle = (index / totalItems) * Math.PI * 2; // Угол для каждой фотографии
+        item.style.transform = `rotateY(${angle}rad) translateZ(${radius}px)`;
       });
-    });
-    gsap.registerPlugin(ScrollTrigger);
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+    
+      // Автоматическое вращение карусели
+      gsap.to(carousel, {
+        rotationY: 360, // Полный оборот на 360 градусов
+        duration: 20, // Длительность одного оборота (в секундах)
+        repeat: -1, // Бесконечное повторение
+        ease: "linear", // Линейная анимация для плавного вращения
+      });
+    
+      // Дополнительно: вращение при прокрутке (опционально)
+      gsap.to(carousel, {
+        rotationY: "+=360", // Добавляем еще один оборот при прокрутке
+        scrollTrigger: {
+          trigger: ".carousel-container",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 2, // Связываем вращение с прокруткой (плавность)
+        },
+      });
+    });    
   </script>
 
 </body>
