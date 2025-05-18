@@ -4,111 +4,96 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Свадьба Цырена и Екатерины</title>
-
-  <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      color: white;
     }
-
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
     }
-
-    .modal {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
   </style>
 </head>
-<body class="overflow-x-hidden bg-gradient-to-br from-blue-900 via-teal-800 to-cyan-800">
+<body class="bg-gray-900 text-white overflow-x-hidden">
 
   <!-- Видео -->
   <section class="relative w-full h-screen overflow-hidden">
-    <video id="mainVideo" class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop playsinline>
+    <video id="mainVideo" class="absolute w-full h-full object-cover" autoplay loop muted playsinline>
       <source src="video/invite.mp4" type="video/mp4" />
       Ваш браузер не поддерживает видео.
     </video>
-    <div class="absolute top-0 left-0 w-full h-full bg-blue-900 bg-opacity-60 backdrop-brightness-75"></div>
+    <div class="absolute inset-0 bg-black/60"></div>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold drop-shadow fade-in" id="title">Цырен & Екатерина</h1>
+      <h1 class="text-5xl md:text-7xl font-extrabold fade-in" id="title">Цырен & Екатерина</h1>
       <p class="mt-6 text-2xl md:text-3xl fade-in" id="date">30 мая 2025 • 18:40</p>
     </div>
   </section>
 
   <!-- Таймер -->
-  <section class="py-12 bg-white bg-opacity-10 backdrop-blur-sm">
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold mb-4">Осталось</h2>
-      <div id="countdown" class="text-3xl font-mono text-yellow-200">Загрузка...</div>
-    </div>
+  <section class="py-10 bg-gray-800 text-center">
+    <h2 class="text-2xl font-semibold mb-4">До свадьбы осталось:</h2>
+    <div id="countdown" class="text-3xl font-mono text-yellow-300">Загрузка...</div>
   </section>
 
   <!-- Фото -->
-  <section class="py-16 px-4 bg-opacity-10">
-    <h2 class="text-2xl text-center font-semibold mb-8">Дорогие гости!</h2>
-    <h2 class="text-2xl text-center font-semibold mb-8">С огромной радостью приглашаем вас разделить с нами один из самых важных моментов в нашей жизни - регистрацию брака</h2>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-      <img src="photo/1.jpg" alt="Фото 1" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/2.jpg" alt="Фото 2" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/3.jpg" alt="Фото 3" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
-      <img src="photo/4.jpg" alt="Фото 4" class="rounded-2xl shadow-2xl transition transform hover:scale-105 duration-500">
+  <section class="py-16 px-4 bg-gray-900">
+    <h2 class="text-2xl text-center font-semibold mb-4">Дорогие гости!</h2>
+    <p class="text-center mb-8 text-lg">Приглашаем вас разделить с нами один из самых важных моментов — регистрацию брака</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+      <img src="photo/1.jpg" alt="Фото 1" class="rounded-xl shadow-lg hover:scale-105 transition" loading="lazy">
+      <img src="photo/2.jpg" alt="Фото 2" class="rounded-xl shadow-lg hover:scale-105 transition" loading="lazy">
+      <img src="photo/3.jpg" alt="Фото 3" class="rounded-xl shadow-lg hover:scale-105 transition" loading="lazy">
+      <img src="photo/4.jpg" alt="Фото 4" class="rounded-xl shadow-lg hover:scale-105 transition" loading="lazy">
     </div>
   </section>
 
   <!-- Программа -->
-  <section class="py-16 px-4 bg-white bg-opacity-10 backdrop-blur-sm md:bg-opacity-10 bg-opacity-20">
-    <h2 class="text-2xl text-center font-semibold mb-8 text-gray-100">Программа</h2>
-    <div class="max-w-xl mx-auto space-y-6 text-lg text-gray-100">
-      <div class="flex items-start space-x-3">
-        <span class="text-yellow-200 font-bold">18:10</span>
-        <p class="flex-1">Сбор гостей</p>
+  <section class="py-16 px-4 bg-gray-800">
+    <h2 class="text-2xl text-center font-semibold mb-8">Программа</h2>
+    <div class="max-w-xl mx-auto space-y-6 text-lg">
+      <div class="flex items-start gap-4">
+        <span class="text-yellow-400 font-bold w-20">18:10</span>
+        <p>Сбор гостей</p>
       </div>
-      <div class="flex items-start space-x-3">
-        <span class="text-yellow-200 font-bold">18:40</span>
-        <p class="flex-1">Торжественная регистрация</p>
+      <div class="flex items-start gap-4">
+        <span class="text-yellow-400 font-bold w-20">18:40</span>
+        <p>Торжественная регистрация</p>
       </div>
-      <div class="flex items-start space-x-3">
-        <span class="text-yellow-200 font-bold">20:00
-          01:00</span>
-        <p class="flex-1">Праздничный ужин в <strong>"Каминном зале ресторанного комплекса Royal Beach"</strong></p>
+      <div class="flex items-start gap-4">
+        <span class="text-yellow-400 font-bold w-20">20:00 – 01:00</span>
+        <p>Праздничный ужин в <strong>"Каминном зале" Royal Beach</strong></p>
       </div>
+      <p class="text-center text-sm text-blue-200 mt-6">
+        Адрес банкета:
+        <a href="https://yandex.ru/profile/1028793374?lang=ru" target="_blank" class="underline hover:text-white">Royal Beach, Каминный зал</a>
+      </p>
     </div>
-    <p class="text-sm text-center mt-6 text-blue-100 max-w-xl mx-auto">
-      Адрес банкетного зала: 
-      <a href="https://yandex.ru/profile/1028793374?lang=ru" target="_blank" class="underline text-blue-200 hover:text-blue-400 transition">
-        Каминный зал Royal Beach
-      </a>
-    </p>
   </section>
 
   <!-- Место проведения -->
-  <section class="py-16 px-4 bg-white bg-opacity-10 backdrop-blur-sm">
+  <section class="py-16 px-4 bg-gray-900">
     <h2 class="text-2xl text-center font-semibold mb-8">Место проведения</h2>
-    <div class="max-w-xl mx-auto">
-      <p class="mb-4 text-center">Дворец бракосочетания №1<br>Английская наб., 28, Санкт-Петербург</p>
+    <div class="max-w-xl mx-auto text-center">
+      <p class="mb-4">Дворец бракосочетания №1<br>Английская наб., 28, Санкт-Петербург</p>
       <iframe 
         src="https://yandex.ru/map-widget/v1/?ll=30.293828%2C59.934014&z=16&mode=map" 
         width="100%" 
         height="200" 
         frameborder="0" 
-        allowfullscreen="true" 
-        style="border-radius: 8px;"
+        allowfullscreen 
+        class="rounded-xl"
       ></iframe>
     </div>
   </section>
 
   <!-- RSVP -->
-  <section class="py-16 px-4 bg-white bg-opacity-10 backdrop-blur-sm">
+  <section class="py-16 px-4 bg-gray-800">
     <h2 class="text-2xl text-center font-semibold mb-8">Подтвердите участие</h2>
-    <form id="rsvpForm" class="max-w-xl mx-auto space-y-4 bg-white bg-opacity-5 p-6 rounded-xl backdrop-blur">
+    <form id="rsvpForm" class="max-w-xl mx-auto space-y-4 bg-gray-700 p-6 rounded-xl">
       <input type="text" name="name" placeholder="Ваше имя" required class="w-full p-3 rounded bg-white text-black" />
       <select name="attending" required class="w-full p-3 rounded bg-white text-black">
         <option value="">Вы придёте?</option>
@@ -117,107 +102,67 @@
       </select>
       <input type="number" name="guests" placeholder="Количество гостей" class="w-full p-3 rounded bg-white text-black" />
       <textarea name="comment" placeholder="Останетесь ли вы на банкет?" rows="3" class="w-full p-3 rounded bg-white text-black"></textarea>
-      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded w-full transition">Отправить</button>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded w-full">Отправить</button>
     </form>
   </section>
 
-  <!-- Модальное окно -->
-  <div id="thankModal" class="modal fixed inset-0 flex items-center justify-center z-50 pointer-events-none opacity-0">
-    <div class="bg-white text-black p-8 rounded-xl shadow-xl text-center w-10/12 max-w-md scale-75 opacity-0">
+  <!-- Модалка -->
+  <div id="thankModal" class="fixed inset-0 flex items-center justify-center bg-black/60 z-50 hidden">
+    <div class="bg-white text-black p-6 rounded-xl w-11/12 max-w-md text-center">
       <h3 class="text-2xl font-bold mb-2">Спасибо за ваш ответ!</h3>
-      <button  onclick="closeModal()"class="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-900 transition"> Закрыть </button>
+      <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-900">Закрыть</button>
     </div>
   </div>
 
   <!-- Скрипты -->
   <script>
-    // Анимации GSAP
+    // Анимации
     gsap.to("#title", { opacity: 1, y: -20, duration: 1 });
     gsap.to("#date", { opacity: 1, y: -10, duration: 1, delay: 0.4 });
+
     // Таймер
-    const targetDate = new Date("2025-05-30T18:40:00").getTime();
     const countdown = document.getElementById("countdown");
+    const targetDate = new Date("2025-05-30T18:40:00").getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-      if (distance < 0) return countdown.innerHTML = "Свадьба уже состоялась!";
+      if (distance < 0) return countdown.innerText = "Свадьба уже состоялась!";
       const d = Math.floor(distance / (1000 * 60 * 60 * 24));
       const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((distance % (1000 * 60)) / 1000);
-      
-      countdown.innerHTML = `${d} дн ${h} ч ${m} мин ${s} сек`;
+      countdown.innerText = `${d} дн ${h} ч ${m} мин ${s} сек`;
     }
-    updateCountdown();
     setInterval(updateCountdown, 1000);
+    updateCountdown();
 
-    // Звук
-    const video = document.getElementById("mainVideo");
-    video.addEventListener('loadeddata', function() {
-      video.muted = false;
-      video.play();
-    });
-    video.addEventListener('canplay', function() {
-      video.muted = false;
-      video.play();
-    });
-
-    // Модальное окно
+    // RSVP
     const form = document.getElementById("rsvpForm");
-    const thankModal = document.getElementById("thankModal");
-    const modalContent = thankModal.querySelector("div");
-
-    function showModal() {
-      thankModal.classList.remove("pointer-events-none");
-      gsap.to(modalContent, { opacity: 1, scale: 1, duration: 0.5 });
-      thankModal.classList.remove("opacity-0");
-    }
-
-    function closeModal() {
-      gsap.to(modalContent, { opacity: 0, scale: 0.75, duration: 0.3 });
-      setTimeout(() => {
-        thankModal.classList.add("opacity-0");
-        thankModal.classList.add("pointer-events-none");
-      }, 300);
-    }
-
-    window.closeModal = closeModal;
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(form);
-      const data = {
-        name: formData.get("name"),
-        attending: formData.get("attending"),
-        guests: formData.get("guests") || "0",
-        comment: formData.get("comment") || ""
-      };
-    
+      const data = Object.fromEntries(formData.entries());
+      const params = new URLSearchParams(data).toString();
       try {
-        const urlEncodedData = new URLSearchParams(data).toString();
-        const response = await fetch("https://script.google.com/macros/s/AKfycbwtOBK8ua1-n0TqkWOmHpeRNR9Q1VrHyheuMwsDKQxenYE-7X4jc3EeR8H7Fnb2vAOp/exec", {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwtOBK8ua1-n0TqkWOmHpeRNR9Q1VrHyheuMwsDKQxenYE-7X4jc3EeR8H7Fnb2vAOp/exec", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: urlEncodedData // Отправляем данные как URL-encoded
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: params
         });
-    
-        const result = await response.json();
-        if (response.ok) {
+        if (res.ok) {
           form.reset();
-          showModal();
-          console.log("Успешно отправлено:", result);
+          document.getElementById("thankModal").classList.remove("hidden");
         } else {
-          throw new Error(`Ошибка сервера: ${response.status} - ${result.message || "Неизвестная ошибка"}`);
+          alert("Ошибка отправки. Попробуйте позже.");
         }
-      } catch (err) {
-        console.error("Ошибка при отправке:", err);
-        alert(`Произошла ошибка: ${err.message}. Попробуйте снова.`);
+      } catch {
+        alert("Ошибка сети. Проверьте соединение.");
       }
     });
 
+    function closeModal() {
+      document.getElementById("thankModal").classList.add("hidden");
+    }
   </script>
-
 </body>
 </html>
